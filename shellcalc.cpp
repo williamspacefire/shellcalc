@@ -28,48 +28,65 @@
 
 using namespace std;
 
+/**
+* Protótipo das funções
+*/
 int soma(int x, int y);
 int sub(int x, int y);
 int mult(int x, int y);
 int div(int x, int y);
 
 /*
- * calculadora básica
+ * Inicio do Programa
  */
 int main(int argc, char** argv) {
     
-    int* n = new int[2];
+    /**
+    * Todas as Variáveis a serem usadas no programa.
+    */
+    int* n = new int[2]; // Aloca memoria para dois inteiros
     char op;
     int ok;
-    int ops[] = {'1','2','3','4','5'};
+    int ops[] = {'1','2','3','4','5'}; //Vetores com as opções a serem escolhidas
     char* iu = ">>> ";
     char sym;
     char* w;
-    cout << "Calc, uma calculadora básica em linha de comando\nEscolha uma opção:\n1 - (+) Adição\n2 - (-) Subtração\n3 - (*x) Multiplicação\n4 - (/) Divisão\n5 - Sair\n\n";
     
+    /**
+    * Imprime a mensagem inicial do programa
+    */
+    cout << "Shellcalc, uma calculadora básica em linha de comando\nEscolha uma opção:\n1 - (+) Adição\n2 - (-) Subtração\n3 - (*x) Multiplicação\n4 - (/) Divisão\n5 - Sair\n\n";
+    
+    /**
+    * Verifica se foi passado algum argumento, e armazena numa variável e vai para ARG: .
+    */
     if(argc > 1){
         w = argv[1];
         if(w[0] == '+'){
             w[0] = '1';
         }else if(w[0] == '-'){
             w[0] = '2';
-        }else if(w[0] == 'x'){
+        }else if(w[0] == 'x'){ // Algo deu errado então no lugar de "*" coloca "x".
             w[0] = '3';
         }else if(w[0] == '/'){
             w[0] = '4';
         }else{
             goto OP;
         }
-        op = w[0];
+        op = w[0]; //Armazena a opção passada por argumento em op.
         goto ARG;
     }
     
     OP:
-    cout << iu;
-    cin >> op;
+    cout << iu; // Imprime ">>>".
+    cin >> op; //armazena a opção escolhida na variável op.
     
     ARG:
     
+    /**
+    * verifica a opção escolhida e armazena o símbolo dela em sym, se for escolhido 5
+    * sai do programa
+    */
     for(int c = 0; c <=4; c++){
         if(ops[c] == op){
             ok = op;
@@ -87,14 +104,17 @@ int main(int argc, char** argv) {
             }
             break;
         }
-        if(c == 4) goto OP;
+        if(c == 4) goto OP; // se nenhuma opção foi escolhida volta para OP: .
     }
     
     cout << "Digite o Primeiro número e pressione [Enter]\n" << iu;
     cin >> n[0];
-    cout << iu << n[0] << " " << sym << " ";
+    cout << iu << n[0] << " " << sym << " "; // Imprime o primeiro número mais o símbolo da opção escolhida
     cin >> n[1];
     
+    /**
+    * Verifica qual a opração a ser feita e imprime o resultado.
+    */
     if(sym == '+'){
         cout << soma(n[0], n[1]);
     }else if(sym == '-'){
@@ -108,7 +128,7 @@ int main(int argc, char** argv) {
     }
     cout << "\n";
     
-    goto OP;
+    goto OP; // depois de imprimir o resultado volta para OP: , para escolher outra opção.
     return 0;
 }
 
